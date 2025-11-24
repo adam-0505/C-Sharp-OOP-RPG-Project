@@ -8,6 +8,18 @@
 
         public string Name { get; }
         public int Health { get; private set; }
+
+        public GameCharacter(string name, int maxHealth)
+        {
+            this.name = name;
+            this.maxHealth = maxHealth;
+        }
+
+        public GameCharacter(string name)
+        {
+            this.name = name;
+            maxHealth = 100;
+        }
     }
     
     internal class Program

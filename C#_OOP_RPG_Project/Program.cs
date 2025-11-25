@@ -109,7 +109,18 @@
     {
         static void Main(string[] args)
         {
-            
+            List<GameCharacter> characters = new List<GameCharacter>();
+            GameCharacter warrior1 = new Warrior("Thorfinn");
+            GameCharacter mage1 = new Mage("Thorkell");
+
+            characters.Add(warrior1);
+            characters.Add(mage1);
+
+            foreach(GameCharacter character in characters)
+            {
+                character.PrintStatus();
+                Console.WriteLine();
+            }
         }
     }
 }

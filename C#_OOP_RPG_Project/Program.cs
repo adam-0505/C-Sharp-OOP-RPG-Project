@@ -121,6 +121,16 @@
                 character.PrintStatus();
                 Console.WriteLine();
             }
+            Console.WriteLine();
+
+            characters[0].PerformAttack(characters[1]);
+            characters[1].PerformAttack(characters[0]);
+
+            foreach(GameCharacter character in characters)
+            {
+                character.PrintStatus();
+                Console.WriteLine();
+            }
         }
     }
 }

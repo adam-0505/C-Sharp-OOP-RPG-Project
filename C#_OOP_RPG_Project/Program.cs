@@ -72,6 +72,15 @@
         {
             target.TakeDamage(10);
         }
+
+        public override void PrintStatus()
+        {
+            Console.WriteLine($"Name: {Name}");
+            Console.WriteLine($"Role: {Role}");
+            Console.WriteLine($"Health: {Health}/{MaxHealth}");
+
+            Console.WriteLine("Warrior uses a heavy sword");
+        }
     }
 
     class Mage : GameCharacter
@@ -85,14 +94,22 @@
         {
             target.TakeDamage(8);
         }
+
+        public override void PrintStatus()
+        {
+            Console.WriteLine($"Name: {Name}");
+            Console.WriteLine($"Role: {Role}");
+            Console.WriteLine($"Health: {Health}/{MaxHealth}");
+
+            Console.WriteLine("Mage channels power");
+        }
     }
     
     internal class Program
     {
         static void Main(string[] args)
         {
-            CharacterClass warrior = CharacterClass.Warrior;
-            CharacterClass mage = CharacterClass.Mage;
+            
         }
     }
 }

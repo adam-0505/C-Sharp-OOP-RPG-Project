@@ -20,6 +20,45 @@
             MaxHealth = maxHealth;
             Health = maxHealth;
         }
+
+        public void TakeDamage(int amount)
+        {
+            if (amount < 0)
+            {
+                return;
+            }
+
+            Health -= amount;
+
+            if (Health < 0)
+            {
+                Health = 0;
+            }
+        }
+
+        public void Heal(int amount)
+        {
+            if (amount < 0)
+            {
+                return;
+            }
+            
+            Health += amount;
+
+            if (Health > MaxHealth)
+            {
+                Health = MaxHealth;
+            }
+        }
+
+        public virtual void PrintStatus()
+        {
+            Console.WriteLine($"Name: {Name}");
+            Console.WriteLine($"Role: {Role}");
+            Console.WriteLine($"Health: {Health}/{MaxHealth}");
+        }
+
+        public abstract void PerformAttack(GameCharacter target);
     }
     
     internal class Program

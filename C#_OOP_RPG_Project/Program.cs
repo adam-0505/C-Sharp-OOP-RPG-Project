@@ -2,23 +2,15 @@
 {
     abstract class GameCharacter
     {
-        string name;
-        int health;
-        int maxHealth;
-
         public string Name { get; }
         public int Health { get; private set; }
+        public int MaxHealth { get; }
 
-        public GameCharacter(string name, int maxHealth)
+        public GameCharacter(string name, int maxHealth = 100)
         {
-            this.name = name;
-            this.maxHealth = maxHealth;
-        }
-
-        public GameCharacter(string name)
-        {
-            this.name = name;
-            maxHealth = 100;
+            Name = name;
+            MaxHealth = maxHealth;
+            Health = maxHealth;
         }
     }
     

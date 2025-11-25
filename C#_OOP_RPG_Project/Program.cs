@@ -67,6 +67,11 @@
         {
             Role = CharacterClass.Warrior;
         }
+
+        public override void PerformAttack(GameCharacter target)
+        {
+            target.TakeDamage(10);
+        }
     }
 
     class Mage : GameCharacter
@@ -74,6 +79,11 @@
         public Mage(string name, int maxHealth = 100) : base(name, maxHealth)
         {
             Role = CharacterClass.Mage;
+        }
+
+        public override void PerformAttack(GameCharacter target)
+        {
+            target.TakeDamage(8);
         }
     }
     

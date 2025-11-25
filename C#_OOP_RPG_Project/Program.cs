@@ -60,12 +60,29 @@
 
         public abstract void PerformAttack(GameCharacter target);
     }
+
+    class Warrior : GameCharacter
+    {
+        public Warrior(string name, int maxHealth = 200) : base(name, maxHealth)
+        {
+            Role = CharacterClass.Warrior;
+        }
+    }
+
+    class Mage : GameCharacter
+    {
+        public Mage(string name, int maxHealth = 100) : base(name, maxHealth)
+        {
+            Role = CharacterClass.Mage;
+        }
+    }
     
     internal class Program
     {
         static void Main(string[] args)
         {
-            
+            CharacterClass warrior = CharacterClass.Warrior;
+            CharacterClass mage = CharacterClass.Mage;
         }
     }
 }

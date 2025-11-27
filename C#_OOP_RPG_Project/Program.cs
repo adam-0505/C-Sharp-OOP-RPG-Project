@@ -1,5 +1,15 @@
 ﻿namespace C__OOP_RPG_Project
 {
+    public interface IAttack
+    {
+        void Attack(GameCharacter target);
+    }
+
+    public interface IHealable
+    {
+        void ReceiveHealing(int amount);
+    }
+    
     public enum CharacterClass
         {
             Warrior,
@@ -7,12 +17,12 @@
             Archer,
             Healer
         }        
-    abstract class GameCharacter
+    public abstract class GameCharacter : IHealable
     {
         public string Name { get; }
         public int Health { get; private set; }
         public int MaxHealth { get; }
-        public CharacterClass Role { get; set; }        
+        public CharacterClass Role { get; set; }
 
         public GameCharacter(string name, int maxHealth = 100)
         {
@@ -59,9 +69,14 @@
         }
 
         public abstract void PerformAttack(GameCharacter target);
+
+        public void ReceiveHealing(int amount)
+        {
+            Heal(amount);
+        }
     }
 
-    class Warrior : GameCharacter
+    public class Warrior : GameCharacter, IAttack
     {
         public Warrior(string name, int maxHealth = 200) : base(name, maxHealth)
         {
@@ -81,9 +96,14 @@
 
             Console.WriteLine("Warrior uses a heavy sword");
         }
+
+        public void Attack(GameCharacter target)
+        {
+            PerformAttack(target);
+        }
     }
 
-    class Mage : GameCharacter
+    public class Mage : GameCharacter, IAttack
     {
         public Mage(string name, int maxHealth = 100) : base(name, maxHealth)
         {
@@ -103,6 +123,11 @@
 
             Console.WriteLine("Mage channels power");
         }
+
+        public void Attack(GameCharacter target)
+        {
+            PerformAttack(target);
+        }
     }
     
     internal class Program
@@ -113,24 +138,37 @@
             GameCharacter warrior1 = new Warrior("Thorfinn");
             GameCharacter mage1 = new Mage("Thorkell");
 
-            characters.Add(warrior1);
-            characters.Add(mage1);
+            // characters.Add(warrior1);
+            // characters.Add(mage1);
 
-            foreach(GameCharacter character in characters)
+            // foreach(GameCharacter character in characters)
+            // {
+            //     character.PrintStatus();
+            //     Console.WriteLine();
+            // }
+            // Console.WriteLine();
+
+            // characters[0].PerformAttack(characters[1]);
+            // characters[1].PerformAttack(characters[0]);
+
+            // foreach(GameCharacter character in characters)
+            // {
+            //     character.PrintStatus();
+            //     Console.WriteLine();
+            // }
+
+            List<IAttack> attackers = new List<IAttack>();
+            attackers.Add((IAttack)warrior1);
+            attackers.Add((IAttack)mage1);
+
+            Warrior warrior2 = new Warrior("Askeladd");
+
+            foreach (IAttack attacker in attackers)
             {
-                character.PrintStatus();
-                Console.WriteLine();
+                attacker.Attack(warrior2);
             }
-            Console.WriteLine();
 
-            characters[0].PerformAttack(characters[1]);
-            characters[1].PerformAttack(characters[0]);
-
-            foreach(GameCharacter character in characters)
-            {
-                character.PrintStatus();
-                Console.WriteLine();
-            }
+            warrior2.PrintStatus();
         }
     }
 }

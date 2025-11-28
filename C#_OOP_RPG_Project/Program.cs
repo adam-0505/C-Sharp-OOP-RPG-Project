@@ -1,4 +1,6 @@
-﻿namespace C__OOP_RPG_Project
+﻿using System.Runtime.ConstrainedExecution;
+
+namespace C__OOP_RPG_Project
 {
     public interface IAttack
     {
@@ -15,7 +17,8 @@
             Warrior,
             Mage,
             Archer,
-            Healer
+            Healer,
+            Boss
         }        
     public abstract class GameCharacter : IHealable
     {
@@ -128,6 +131,24 @@
         {
             PerformAttack(target);
         }
+    }
+
+    public sealed class BossEnemy : GameCharacter, IAttack
+    {
+        public BossEnemy(string name, int maxHealth = 500) : base(name, maxHealth)
+        {
+            Role = CharacterClass.Boss;
+        }
+        
+        public override void PerformAttack(GameCharacter target)
+        {
+            target.TakeDamage(30);
+        }
+
+        public void Attack(GameCharacter target)
+        {
+            PerformAttack(target);
+        }        
     }
     
     internal class Program

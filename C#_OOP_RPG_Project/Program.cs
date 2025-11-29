@@ -1,6 +1,4 @@
-﻿using System.Runtime.ConstrainedExecution;
-
-namespace C__OOP_RPG_Project
+﻿namespace C__OOP_RPG_Project
 {
     public interface IAttack
     {
@@ -25,7 +23,7 @@ namespace C__OOP_RPG_Project
         public string Name { get; }
         public int Health { get; private set; }
         public int MaxHealth { get; }
-        public CharacterClass Role { get; set; }
+        public CharacterClass Role { get; protected set; }
 
         public GameCharacter(string name, int maxHealth = 100)
         {
@@ -49,7 +47,7 @@ namespace C__OOP_RPG_Project
             }
         }
 
-        public void Heal(int amount)
+        protected void Heal(int amount)
         {
             if (amount < 0)
             {
@@ -71,7 +69,7 @@ namespace C__OOP_RPG_Project
             Console.WriteLine($"Health: {Health}/{MaxHealth}");
         }
 
-        public abstract void PerformAttack(GameCharacter target);
+        protected abstract void PerformAttack(GameCharacter target);
 
         public void ReceiveHealing(int amount)
         {
@@ -86,7 +84,7 @@ namespace C__OOP_RPG_Project
             Role = CharacterClass.Warrior;
         }
 
-        public override void PerformAttack(GameCharacter target)
+        protected override void PerformAttack(GameCharacter target)
         {
             target.TakeDamage(10);
         }
@@ -113,7 +111,7 @@ namespace C__OOP_RPG_Project
             Role = CharacterClass.Mage;
         }
 
-        public override void PerformAttack(GameCharacter target)
+        protected override void PerformAttack(GameCharacter target)
         {
             target.TakeDamage(8);
         }
@@ -140,7 +138,7 @@ namespace C__OOP_RPG_Project
             Role = CharacterClass.Boss;
         }
         
-        public override void PerformAttack(GameCharacter target)
+        protected override void PerformAttack(GameCharacter target)
         {
             target.TakeDamage(30);
         }

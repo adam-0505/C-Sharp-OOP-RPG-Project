@@ -153,9 +153,9 @@
     {
         static void Main(string[] args)
         {
-            List<GameCharacter> characters = new List<GameCharacter>();
-            GameCharacter warrior1 = new Warrior("Thorfinn");
-            GameCharacter mage1 = new Mage("Thorkell");
+            // List<GameCharacter> characters = new List<GameCharacter>();
+            Warrior warrior1 = new Warrior("Thorfinn");
+            Mage mage1 = new Mage("Thorkell");
 
             // characters.Add(warrior1);
             // characters.Add(mage1);
@@ -176,18 +176,31 @@
             //     Console.WriteLine();
             // }
 
-            List<IAttack> attackers = new List<IAttack>();
-            attackers.Add((IAttack)warrior1);
-            attackers.Add((IAttack)mage1);
+            // List<IAttack> attackers = new List<IAttack>();
+            // attackers.Add((IAttack)warrior1);
+            // attackers.Add((IAttack)mage1);
 
-            Warrior warrior2 = new Warrior("Askeladd");
+            // Warrior warrior2 = new Warrior("Askeladd");
 
-            foreach (IAttack attacker in attackers)
-            {
-                attacker.Attack(warrior2);
-            }
+            // foreach (IAttack attacker in attackers)
+            // {
+            //     attacker.Attack(warrior2);
+            // }
 
-            warrior2.PrintStatus();
+            // warrior2.PrintStatus();
+
+            BossEnemy bossEnemy1 = new BossEnemy("Kaiju No. 9");
+
+            warrior1.Attack(bossEnemy1);
+            mage1.Attack(bossEnemy1);
+            bossEnemy1.Attack(warrior1);
+            bossEnemy1.Attack(mage1);
+
+            warrior1.PrintStatus();
+            Console.WriteLine();
+            mage1.PrintStatus();
+            Console.WriteLine();
+            bossEnemy1.PrintStatus();
         }
     }
 }

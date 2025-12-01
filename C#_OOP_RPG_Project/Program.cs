@@ -9,6 +9,11 @@
     {
         void ReceiveHealing(int amount);
     }
+
+    public interface IAttackBehavior
+    {
+        void ExecuteAttack(GameCharacter attacker, GameCharacter target);
+    }
     
     public enum CharacterClass
         {

@@ -153,6 +153,21 @@
             PerformAttack(target);
         }        
     }
+
+    class MeleeAttackBehavior : IAttackBehavior
+    {
+        
+    }
+
+    class MagicAttackBehavior : IAttackBehavior
+    {
+        
+    }
+
+    class BossAttackBehavior : IAttackBehavior
+    {
+        
+    }
     
     internal class Program
     {

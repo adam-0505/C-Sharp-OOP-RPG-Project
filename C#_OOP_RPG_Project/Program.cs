@@ -29,6 +29,7 @@
         public int Health { get; private set; }
         public int MaxHealth { get; }
         public CharacterClass Role { get; protected set; }
+        public IAttackBehavior AttackBehavior { get; set; }
 
         public GameCharacter(string name, int maxHealth = 100)
         {

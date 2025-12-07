@@ -77,6 +77,11 @@
 
         protected void PerformAttack(GameCharacter target)
         {
+            if (AttackBehavior == null)
+            {
+                throw new InvalidOperationException("AttackBehavior not set.");
+            }
+            
             AttackBehavior.ExecuteAttack(this, target);
         }
 
@@ -168,7 +173,7 @@
     {
         public void ExecuteAttack(GameCharacter attacker, GameCharacter target)
         {
-            target.TakeDamage(10);
+            target.TakeDamage(30);
             Console.WriteLine($"{attacker.Name} unleashes a boss attack on {target.Name}");
         }
     }
@@ -178,8 +183,8 @@
         static void Main(string[] args)
         {
             // List<GameCharacter> characters = new List<GameCharacter>();
-            Warrior warrior1 = new Warrior("Thorfinn");
-            Mage mage1 = new Mage("Thorkell");
+            // Warrior warrior1 = new Warrior("Thorfinn");
+            // Mage mage1 = new Mage("Thorkell");
 
             // characters.Add(warrior1);
             // characters.Add(mage1);
@@ -213,18 +218,18 @@
 
             // warrior2.PrintStatus();
 
-            BossEnemy bossEnemy1 = new BossEnemy("Kaiju No. 9");
+            // BossEnemy bossEnemy1 = new BossEnemy("Kaiju No. 9");
 
-            warrior1.Attack(bossEnemy1);
-            mage1.Attack(bossEnemy1);
-            bossEnemy1.Attack(warrior1);
-            bossEnemy1.Attack(mage1);
+            // warrior1.Attack(bossEnemy1);
+            // mage1.Attack(bossEnemy1);
+            // bossEnemy1.Attack(warrior1);
+            // bossEnemy1.Attack(mage1);
 
-            warrior1.PrintStatus();
-            Console.WriteLine();
-            mage1.PrintStatus();
-            Console.WriteLine();
-            bossEnemy1.PrintStatus();
+            // warrior1.PrintStatus();
+            // Console.WriteLine();
+            // mage1.PrintStatus();
+            // Console.WriteLine();
+            // bossEnemy1.PrintStatus();
         }
     }
 }

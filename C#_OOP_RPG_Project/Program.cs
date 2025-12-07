@@ -29,6 +29,7 @@
         public int Health { get; private set; }
         public int MaxHealth { get; }
         public CharacterClass Role { get; protected set; }
+        public IAttackBehavior? AttackBehavior { get; set; }
 
         public GameCharacter(string name, int maxHealth = 100)
         {
@@ -74,7 +75,15 @@
             Console.WriteLine($"Health: {Health}/{MaxHealth}");
         }
 
-        protected abstract void PerformAttack(GameCharacter target);
+        protected void PerformAttack(GameCharacter target)
+        {
+            if (AttackBehavior == null)
+            {
+                throw new InvalidOperationException("AttackBehavior not set.");
+            }
+            
+            AttackBehavior.ExecuteAttack(this, target);
+        }
 
         public void ReceiveHealing(int amount)
         {
@@ -87,11 +96,7 @@
         public Warrior(string name, int maxHealth = 200) : base(name, maxHealth)
         {
             Role = CharacterClass.Warrior;
-        }
-
-        protected override void PerformAttack(GameCharacter target)
-        {
-            target.TakeDamage(10);
+            AttackBehavior = new MeleeAttackBehavior();
         }
 
         public override void PrintStatus()
@@ -114,11 +119,7 @@
         public Mage(string name, int maxHealth = 100) : base(name, maxHealth)
         {
             Role = CharacterClass.Mage;
-        }
-
-        protected override void PerformAttack(GameCharacter target)
-        {
-            target.TakeDamage(8);
+            AttackBehavior = new MagicAttackBehavior();
         }
 
         public override void PrintStatus()
@@ -141,11 +142,7 @@
         public BossEnemy(string name, int maxHealth = 500) : base(name, maxHealth)
         {
             Role = CharacterClass.Boss;
-        }
-        
-        protected override void PerformAttack(GameCharacter target)
-        {
-            target.TakeDamage(30);
+            AttackBehavior = new BossAttackBehavior();
         }
 
         public void Attack(GameCharacter target)
@@ -153,14 +150,41 @@
             PerformAttack(target);
         }        
     }
+
+    class MeleeAttackBehavior : IAttackBehavior
+    {
+        public void ExecuteAttack(GameCharacter attacker, GameCharacter target)
+        {
+            target.TakeDamage(10);
+            Console.WriteLine($"{attacker.Name} swings a heavy weapon at {target.Name}");
+        }
+    }
+
+    class MagicAttackBehavior : IAttackBehavior
+    {
+        public void ExecuteAttack(GameCharacter attacker, GameCharacter target)
+        {
+            target.TakeDamage(8);
+            Console.WriteLine($"{attacker.Name} casts a spell at {target.Name}");
+        }
+    }
+
+    class BossAttackBehavior : IAttackBehavior
+    {
+        public void ExecuteAttack(GameCharacter attacker, GameCharacter target)
+        {
+            target.TakeDamage(30);
+            Console.WriteLine($"{attacker.Name} unleashes a boss attack on {target.Name}");
+        }
+    }
     
     internal class Program
     {
         static void Main(string[] args)
         {
             // List<GameCharacter> characters = new List<GameCharacter>();
-            Warrior warrior1 = new Warrior("Thorfinn");
-            Mage mage1 = new Mage("Thorkell");
+            // Warrior warrior1 = new Warrior("Thorfinn");
+            // Mage mage1 = new Mage("Thorkell");
 
             // characters.Add(warrior1);
             // characters.Add(mage1);
@@ -194,18 +218,18 @@
 
             // warrior2.PrintStatus();
 
-            BossEnemy bossEnemy1 = new BossEnemy("Kaiju No. 9");
+            // BossEnemy bossEnemy1 = new BossEnemy("Kaiju No. 9");
 
-            warrior1.Attack(bossEnemy1);
-            mage1.Attack(bossEnemy1);
-            bossEnemy1.Attack(warrior1);
-            bossEnemy1.Attack(mage1);
+            // warrior1.Attack(bossEnemy1);
+            // mage1.Attack(bossEnemy1);
+            // bossEnemy1.Attack(warrior1);
+            // bossEnemy1.Attack(mage1);
 
-            warrior1.PrintStatus();
-            Console.WriteLine();
-            mage1.PrintStatus();
-            Console.WriteLine();
-            bossEnemy1.PrintStatus();
+            // warrior1.PrintStatus();
+            // Console.WriteLine();
+            // mage1.PrintStatus();
+            // Console.WriteLine();
+            // bossEnemy1.PrintStatus();
         }
     }
 }
